@@ -1,2 +1,6 @@
 aiogram
 aioredis
+sqlalchemy
+playsound
+apscheduler
+aiosqlite
