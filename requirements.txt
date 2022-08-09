@@ -4,3 +4,4 @@ sqlalchemy
 playsound
 apscheduler
 aiosqlite
+loguru

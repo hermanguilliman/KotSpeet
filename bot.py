@@ -1,16 +1,18 @@
 import asyncio
 import logging
+from pytz import utc
 
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage
 
-from tgbot.config import load_config
+from tgbot.config import load_config, jobstores
 from tgbot.filters.role import RoleFilter, AdminFilter
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.user import register_user
 from tgbot.handlers.jobs import register_job_list
 from tgbot.middlewares.db import DbMiddleware
+from tgbot.middlewares.powerswitch import PowerSwitcherMiddleware
 from tgbot.middlewares.role import RoleMiddleware
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
@@ -18,6 +20,8 @@ from tgbot.models.database import Base
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from tgbot.middlewares.schedule import ScheduleMiddleware
+from tgbot.services.powerswitch import PowerSwitcher
+
 
 
 logger = logging.getLogger(__name__)
@@ -59,9 +63,12 @@ async def main():
 
     bot = Bot(token=config.tg_bot.token)
     dp = Dispatcher(bot, storage=storage)
-    scheduler = AsyncIOScheduler()
+    
+    scheduler = AsyncIOScheduler(jobstores=jobstores, timezone="Europe/Moscow")
+    powerswitcher = PowerSwitcher()
     dp.middleware.setup(DbMiddleware(pool))
     dp.middleware.setup(ScheduleMiddleware(scheduler))
+    dp.middleware.setup(PowerSwitcherMiddleware(powerswitcher))
     dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_id))
     dp.filters_factory.bind(RoleFilter)
     dp.filters_factory.bind(AdminFilter)

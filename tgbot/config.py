@@ -1,5 +1,6 @@
 import configparser
 from dataclasses import dataclass
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
 
 @dataclass
@@ -43,3 +44,8 @@ def load_config(path: str):
         ),
         db=DbConfig(**config["db"]),
     )
+
+
+jobstores = {
+    'default': SQLAlchemyJobStore(url='sqlite:///database.db')
+    }

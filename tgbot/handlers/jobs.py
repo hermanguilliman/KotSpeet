@@ -6,11 +6,12 @@ from tgbot.models.role import UserRole
 from tgbot.services.repository import Repo
 from tgbot.models.database import User
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from tgbot.services.powerswitch import PowerSwitcher
+from datetime import datetime, timedelta
 
-async def show_jobs(m: Message, repo: Repo, scheduler: AsyncIOScheduler,*args, **kwargs):
-    def hhh():
-        print("hey!")
-    scheduler.add_job(hhh, "cron", day_of_week="*", hour=7, minute=0)
+async def show_jobs(m: Message, repo: Repo, scheduler: AsyncIOScheduler, switcher: PowerSwitcher):
+    run_date = datetime.now() + timedelta(minutes=1)
+    scheduler.add_job(switcher.reboot, "date", run_date=run_date)
     s = scheduler.get_jobs()
     await m.reply(f"Here is your jobs:\n {s}")
 
