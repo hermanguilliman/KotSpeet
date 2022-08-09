@@ -1,6 +1,6 @@
 [tg_bot]
 token =
-admin_id =
+admin_list = [000000, 000001,]
 use_redis = true
 
 [db]

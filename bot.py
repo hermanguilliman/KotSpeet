@@ -69,7 +69,7 @@ async def main():
     dp.middleware.setup(DbMiddleware(pool))
     dp.middleware.setup(ScheduleMiddleware(scheduler))
     dp.middleware.setup(PowerSwitcherMiddleware(powerswitcher))
-    dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_id))
+    dp.middleware.setup(RoleMiddleware(config.tg_bot.admin_list))
     dp.filters_factory.bind(RoleFilter)
     dp.filters_factory.bind(AdminFilter)
 

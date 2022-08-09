@@ -1,7 +1,7 @@
 import configparser
 from dataclasses import dataclass
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
-
+import ast
 
 @dataclass
 class DbConfig:
@@ -14,7 +14,7 @@ class DbConfig:
 @dataclass
 class TgBot:
     token: str
-    admin_id: int
+    admin_list: list[int]
     use_redis: bool
 
 
@@ -39,8 +39,8 @@ def load_config(path: str):
     return Config(
         tg_bot=TgBot(
             token=tg_bot["token"],
-            admin_id=int(tg_bot["admin_id"]),
-            use_redis=cast_bool(tg_bot.get("use_redis")),
+            admin_list=ast.literal_eval(tg_bot["admin_list"]),
+            use_redis=tg_bot.getboolean("use_redis"),
         ),
         db=DbConfig(**config["db"]),
     )
