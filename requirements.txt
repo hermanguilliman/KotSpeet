@@ -5,3 +5,5 @@ playsound
 apscheduler
 aiosqlite
 loguru
+aiogram_dialog
+pydantic

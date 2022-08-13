@@ -28,7 +28,7 @@ class LinuxOperations(BasicOperations):
 class WindowsOperations(BasicOperations):
     reboot = ["shutdown", "/r", "/t", "0"]
     cancel = ["shutdown", "/a"]
-    shutdown = ["shutdown", "/s", "/c", """ """, "/t", "1"]
+    shutdown = ["shutdown", "/s", "/c", """ """, "/t", "0"]
 
 
 class DarwinOperations(BasicOperations):

@@ -19,7 +19,7 @@ async def user_start(m: Message, repo: Repo):
             full_name=m.from_user.full_name,
             language_code=m.from_user.language_code,
         )
-    await m.reply("Bot is under construction!")
+    await m.answer_sticker("CAACAgIAAxkBAAERZgRi850QcbmUND_ZmIEC95vZrphQ5QAC1BQAAnorGEmQ5IrFt8_dcikE")
 
 
 def register_user(dp: Dispatcher):
