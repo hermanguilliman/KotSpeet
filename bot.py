@@ -3,7 +3,7 @@ import asyncio
 from loguru import logger
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.contrib.fsm_storage.redis import RedisStorage
+#from aiogram.contrib.fsm_storage.redis import RedisStorage
 
 from tgbot.config import load_config, jobstores
 from tgbot.filters.role import RoleFilter, AdminFilter
@@ -23,7 +23,8 @@ from tgbot.services.powerswitch import PowerSwitcher
 from aiogram_dialog import DialogRegistry
 from tgbot.dialogs.main_menu_dialog import main_menu
 from tgbot.dialogs.set_timer_dialog import timer
-from tgbot.dialogs.reset_timer_dialog import reset_menu
+from tgbot.dialogs.reset_timer_dialog import reset_timer
+
 
 # logger = logging.getLogger(__name__)
 
@@ -51,7 +52,8 @@ async def main():
     config = load_config("bot.ini")
 
     if config.tg_bot.use_redis:
-        storage = RedisStorage()
+        #storage = RedisStorage()
+        print('e?')
     else:
         storage = MemoryStorage()
     pool = await create_pool(
@@ -81,7 +83,7 @@ async def main():
     
     dialog_registry.register(main_menu)
     dialog_registry.register(timer)
-    dialog_registry.register(reset_menu)
+    dialog_registry.register(reset_timer)
     
     # start
     try:

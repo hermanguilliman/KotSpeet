@@ -28,7 +28,7 @@ class Repo:
         """update full_name of exist user / обновляет """
         stmt = (
             update(User).
-            where(User.id == user_id).
+            where(User.user_id == user_id).
             values(full_name=full_name)
         )
         await self.session.execute(stmt)
@@ -36,6 +36,6 @@ class Repo:
 
     async def delete_user(self, user_id):
         """ delete user by id / удаляем пользователя по id"""
-        stmt = delete(User).where(User.id == user_id)
+        stmt = delete(User).where(User.user_id == user_id)
         await self.session.execute(stmt)
         await self.session.commit()
