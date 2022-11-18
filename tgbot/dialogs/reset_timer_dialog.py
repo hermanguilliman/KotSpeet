@@ -4,7 +4,7 @@ from aiogram_dialog.widgets.text import Const, Format
 from tgbot.getters.reset_timer_getter import reset_timer_getter
 from aiogram.types import ParseMode, CallbackQuery
 from tgbot.states.reset_timer_state import ResetTimer
-from aiogram_dialog.widgets.kbd import Cancel, Select, Button
+from aiogram_dialog.widgets.kbd import Cancel, Select, Button, Start, Next
 from .helper import bolder
 from loguru import logger
 
@@ -14,13 +14,13 @@ async def cancel_jobs(c: CallbackQuery,
                       manager: DialogManager,
                       *args, **kwargs):
     await manager.start(ResetTimer.reset_confirm)
-
-
+    
+    
 # Диалог с установкой времени
 reset_timer = Dialog(
     Window(
         Const(bolder('⏰Отмена активных заданий')),
-        Button(Const("Сбросить все таймеры"), id='reset_timer', on_click=cancel_jobs),
+        Next(Const("Сбросить все таймеры")),
         Cancel(Const("Вернуться назад")),
         state=ResetTimer.reset_timer_request,
         parse_mode=ParseMode.HTML,
