@@ -49,7 +49,7 @@ async def reset_timer(c: CallbackQuery,
 buttons = Group(
     Row(
         Button(Const("⏱ Таймер выключения"), id='set_off_timer', on_click=set_off_timer),
-        Button(Const("💻 Таймер перезагрузки"), id='set_reboot_timer', on_click=set_reboot_timer),
+        #Button(Const("💻 Таймер перезагрузки"), id='set_reboot_timer', on_click=set_reboot_timer),
 
     ),
     Row(

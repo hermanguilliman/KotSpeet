@@ -32,8 +32,8 @@ async def minutes_changed(c: ChatEvent,
 # Диалог с установкой времени
 timer = Dialog(
     Window(
-        Const(bolder('⏰ Установите таймер на:')),
-        Const(bolder("Часы")),
+        Const(bolder('⏰ Установите таймер:')),
+        Const(bolder("Верхняя строка - часы")),
         Select(
             Format("{item}"),
             items=[1, 2, 3, 4, 5, ],
@@ -41,7 +41,7 @@ timer = Dialog(
             id="hours",
             on_click=hours_changed,
         ),
-        Const(bolder("Минуты")),
+        Const(bolder("Нижняя строка - минуты")),
         Select(
             Format("{item}"),
             items=[10, 20, 30, 40, 50],
